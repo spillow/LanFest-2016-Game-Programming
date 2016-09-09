@@ -89,6 +89,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &133214
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 409856}
+  - 65: {fileID: 6533658}
+  - 114: {fileID: 11451820}
+  m_Layer: 0
+  m_Name: ScoreCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &140280
 GameObject:
   m_ObjectHideFlags: 1
@@ -120,6 +137,23 @@ GameObject:
   - 64: {fileID: 6441718}
   m_Layer: 0
   m_Name: Goal2Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &151024
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 421778}
+  - 65: {fileID: 6558900}
+  - 114: {fileID: 11470462}
+  m_Layer: 0
+  m_Name: ScoreCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -292,6 +326,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 456794}
   m_RootOrder: 0
+--- !u!4 &409856
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133214}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -196.5, y: 1, z: 12.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 468394}
+  m_RootOrder: 1
 --- !u!4 &411644
 Transform:
   m_ObjectHideFlags: 1
@@ -317,6 +363,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 492038}
   m_RootOrder: 0
+--- !u!4 &421778
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 197, y: 1, z: 12.300008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 446216}
+  m_RootOrder: 1
 --- !u!4 &425742
 Transform:
   m_ObjectHideFlags: 1
@@ -384,6 +442,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432088}
+  - {fileID: 421778}
   m_Father: {fileID: 425742}
   m_RootOrder: 4
 --- !u!4 &456794
@@ -422,6 +481,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400450}
+  - {fileID: 409856}
   m_Father: {fileID: 425742}
   m_RootOrder: 2
 --- !u!4 &487202
@@ -1113,6 +1173,30 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300004, guid: fcbc0146dacda1e46880a29322c53a8b, type: 3}
+--- !u!65 &6533658
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133214}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 30.4, y: 68.1, z: 24.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6558900
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 30.4, y: 68.1, z: 24.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &9547624
 Animator:
   serializedVersion: 3
@@ -1130,6 +1214,34 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11451820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a7976c81460da5428dbf01708c80dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Ball: {fileID: 0}
+  m_BlastRadius: 0
+  m_ExplosionForce: 0
+--- !u!114 &11470462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a7976c81460da5428dbf01708c80dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Ball: {fileID: 0}
+  m_BlastRadius: 0
+  m_ExplosionForce: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
