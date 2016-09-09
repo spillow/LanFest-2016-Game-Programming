@@ -332,6 +332,18 @@ namespace UnityStandardAssets.Vehicles.Car
             // For audio purposes
             GearChanging();
 
+            // gravity check
+            /*
+            if (AtLeastPartiallyInContactWithSurface() && (AccelInput > 0f || boost > 0f))
+            {
+                m_Rigidbody.useGravity = false;
+            }
+            else
+            {
+                m_Rigidbody.useGravity = true;
+            }
+            */
+
             // TODO: need this?
 #if true 
             AddDownForce();
@@ -418,10 +430,23 @@ namespace UnityStandardAssets.Vehicles.Car
                 WheelHit wheelhit;
                 m_WheelColliders[i].GetGroundHit(out wheelhit);
                 if (wheelhit.normal == Vector3.zero)
-                    return false; // wheels arent on the ground 
+                    return false; // wheels aren't on the ground 
             }
 
             return true;
+        }
+
+        private bool AtLeastPartiallyInContactWithSurface()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                WheelHit wheelhit;
+                m_WheelColliders[i].GetGroundHit(out wheelhit);
+                if (wheelhit.normal != Vector3.zero)
+                    return true; // some wheel is on the ground
+            }
+
+            return false;
         }
 
         /*
@@ -457,10 +482,10 @@ namespace UnityStandardAssets.Vehicles.Car
         {
             if (InContactWithSurface())
             {
-                m_WheelColliders[0].attachedRigidbody.AddForce(
+                m_Rigidbody.AddForce(
                     -transform.up *
                     m_Downforce   *
-                    m_WheelColliders[0].attachedRigidbody.velocity.magnitude);
+                    m_Rigidbody.velocity.magnitude);
             }
         }
 
