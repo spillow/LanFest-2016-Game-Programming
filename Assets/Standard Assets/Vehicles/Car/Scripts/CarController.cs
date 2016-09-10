@@ -189,7 +189,8 @@ namespace UnityStandardAssets.Vehicles.Car
                     if (rollbrake > 0f)
                     {
                         Vector3 airRoll = new Vector3(
-                            0f, 0f, -1f * steer * rollbrake * m_AirRollFactor);
+                            0f, 0f,
+                            -1f * steer * rollbrake * m_AirRollFactor * Time.fixedDeltaTime);
                         m_Rigidbody.AddRelativeTorque(airRoll, ForceMode.Impulse);
                     }
                     else
@@ -199,7 +200,7 @@ namespace UnityStandardAssets.Vehicles.Car
                             steer,
                             0f);
                         m_Rigidbody.AddRelativeTorque(
-                            torqDir * m_FlipFactor, ForceMode.Impulse);
+                            torqDir * m_FlipFactor * Time.fixedDeltaTime, ForceMode.Impulse);
                     }
                 }
             }
@@ -224,7 +225,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 case JumpStates.Floating:
                     if (jump > 0.0f)
                     {
-                        m_Rigidbody.AddForce(transform.up * m_JumpForce * Time.deltaTime * 20f,
+                        m_Rigidbody.AddForce(transform.up * m_JumpForce * Time.fixedDeltaTime * 20f,
                             ForceMode.Impulse);
                         m_JumpState = JumpStates.InAirDead;
                         Debug.Log("Going to InAirDead!");
@@ -244,7 +245,7 @@ namespace UnityStandardAssets.Vehicles.Car
                     }
                     else if ((Time.time - m_JumpTime) <= m_FirstJumpTime)
                     {
-                        m_Rigidbody.AddForce(transform.up * 3f * m_JumpForce * Time.deltaTime,
+                        m_Rigidbody.AddForce(transform.up * 3f * m_JumpForce * Time.fixedDeltaTime,
                             ForceMode.Impulse);
                         Debug.Log("Firing up!");
                     }
@@ -260,7 +261,7 @@ namespace UnityStandardAssets.Vehicles.Car
                     }
                     else if (jump > 0.0f)
                     {
-                        m_Rigidbody.AddForce(transform.up * m_JumpForce * Time.deltaTime * 20f,
+                        m_Rigidbody.AddForce(transform.up * m_JumpForce * Time.fixedDeltaTime * 20f,
                             ForceMode.Impulse);
                         m_JumpState = JumpStates.InAirDead;
                         Debug.Log("Going to InAirDead!");
@@ -273,7 +274,9 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void Boost(float boost)
         {
-            m_Rigidbody.AddForce(transform.forward * boost * m_BoostFactor, ForceMode.Impulse);
+            m_Rigidbody.AddForce(
+                transform.forward * boost * m_BoostFactor * Time.fixedDeltaTime,
+                ForceMode.Impulse);
             m_LeftBoostBurn.enableEmission = (boost > 0f);
             m_RightBoostBurn.enableEmission = (boost > 0f);
         }
@@ -333,8 +336,9 @@ namespace UnityStandardAssets.Vehicles.Car
             GearChanging();
 
             // gravity check
+            
             /*
-            if (AtLeastPartiallyInContactWithSurface() && (AccelInput > 0f || boost > 0f))
+            if (WheelOnCage() && (AccelInput > 0f || boost > 0f))
             {
                 m_Rigidbody.useGravity = false;
             }
@@ -436,30 +440,19 @@ namespace UnityStandardAssets.Vehicles.Car
             return true;
         }
 
-        private bool AtLeastPartiallyInContactWithSurface()
+        private bool WheelOnCage()
         {
             for (int i = 0; i < 4; i++)
             {
                 WheelHit wheelhit;
                 m_WheelColliders[i].GetGroundHit(out wheelhit);
-                if (wheelhit.normal != Vector3.zero)
+                if (wheelhit.normal != Vector3.zero &&
+                    wheelhit.collider.gameObject.tag == "Cage")
                     return true; // some wheel is on the ground
             }
 
             return false;
         }
-
-        /*
-        void OnCollisionEnter(Collision coll)
-        {
-            //coll.
-        }
-
-        void OnTriggerEnter(Collider coll)
-        {
-            //coll.
-        }
-        */
 
         private void SteerHelper()
         {
@@ -574,11 +567,11 @@ namespace UnityStandardAssets.Vehicles.Car
         {
             if (forwardSlip >= m_SlipLimit && m_CurrentTorque >= 0)
             {
-                m_CurrentTorque -= 10 * m_TractionControl;
+                m_CurrentTorque -= 10000 * m_TractionControl;
             }
             else
             {
-                m_CurrentTorque += 10 * m_TractionControl;
+                m_CurrentTorque += 10000 * m_TractionControl;
                 if (m_CurrentTorque > m_FullTorqueOverAllWheels)
                 {
                     m_CurrentTorque = m_FullTorqueOverAllWheels;
