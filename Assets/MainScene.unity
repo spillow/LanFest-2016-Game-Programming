@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Ball: {fileID: 173103776}
   m_BlastRadius: 100
   m_ExplosionForce: 10000000
+  m_Explosion: {fileID: 194844, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
 --- !u!1 &173103776 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 169564, guid: eb865f1dfd8da3c4d8416b2076308cc7, type: 2}
@@ -646,6 +647,48 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 419960, guid: fe204993f83ea534c99e733c6ff995a8, type: 2}
   m_PrefabInternal: {fileID: 323605393}
+--- !u!1001 &514162202
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 470630, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470630, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470630, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470630, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470630, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470630, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470630, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 470630, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &529452137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,6 +1299,10 @@ Prefab:
       propertyPath: m_BlastRadius
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 11463566, guid: 816a1ecf9a691644a81d3102faaeded6, type: 2}
+      propertyPath: m_Explosion
+      value: 
+      objectReference: {fileID: 194844, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 816a1ecf9a691644a81d3102faaeded6, type: 2}
   m_IsPrefabParent: 0
@@ -1631,6 +1678,7 @@ MonoBehaviour:
   m_Ball: {fileID: 173103776}
   m_BlastRadius: 100
   m_ExplosionForce: 10000000
+  m_Explosion: {fileID: 194844, guid: be8a2f05eaf05f7428581f3f09e9996e, type: 2}
 --- !u!65 &1533149782
 BoxCollider:
   m_ObjectHideFlags: 0
