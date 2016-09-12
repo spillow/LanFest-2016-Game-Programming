@@ -8,7 +8,7 @@ namespace UnityStandardAssets.Vehicles.Car
     public class CarUserControl : MonoBehaviour
     {
         private CarController m_Car; // the car controller we want to use
-
+        public UnityStandardAssets.Cameras.AutoCam m_Cam;
 
         private void Awake()
         {
@@ -16,6 +16,15 @@ namespace UnityStandardAssets.Vehicles.Car
             m_Car = GetComponent<CarController>();
         }
 
+        void Update()
+        {
+            bool ballcam = CrossPlatformInputManager.GetButtonDown("BallCam");
+
+            if (ballcam)
+            {
+                m_Cam.BallCamPressed();
+            }
+        }
 
         private void FixedUpdate()
         {

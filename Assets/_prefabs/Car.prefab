@@ -837,8 +837,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.50590014, z: -0.093}
-  m_LocalScale: {x: 2.43, y: 0.41, z: 3.3971357}
+  m_LocalPosition: {x: -0, y: 0.50590014, z: -0.66}
+  m_LocalScale: {x: 1.7947776, y: 0.41, z: 3.1099072}
   m_Children: []
   m_Father: {fileID: 486554}
   m_RootOrder: 1
@@ -1026,8 +1026,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 104224}
   m_LocalRotation: {x: 0, y: -0.70935583, z: 0, w: 0.7048506}
-  m_LocalPosition: {x: 11.33, y: 2.35, z: -1.32}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 11.33, y: 1.19, z: -1.32}
+  m_LocalScale: {x: 1.2203387, y: 1.2203393, z: 1.2203393}
   m_Children:
   - {fileID: 415774}
   m_Father: {fileID: 0}
@@ -1664,7 +1664,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195558}
-  m_Material: {fileID: 13400000, guid: 4004f21453051164c9045f7c4cab6cbf, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2168,14 +2168,14 @@ MonoBehaviour:
   m_SpeedType: 1
   m_Topspeed: 302.5
   m_RevRangeBoundary: 1
-  m_SlipLimit: 0.1
+  m_SlipLimit: 0.5
   m_BrakeTorque: 1000000
   m_JumpForce: 40000
   m_SecondJumpTimer: 2
   m_FirstJumpTime: 0.2
-  m_FlipFactor: 200
-  m_BoostFactor: 1000
-  m_AirRollFactor: 90
+  m_FlipFactor: 16000
+  m_BoostFactor: 50000
+  m_AirRollFactor: 5000
   m_LeftBoostBurn: {fileID: 19836940}
   m_RightBoostBurn: {fileID: 19831568}
   m_TurtleDetector: {fileID: 6574780}

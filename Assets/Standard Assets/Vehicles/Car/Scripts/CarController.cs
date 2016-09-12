@@ -427,7 +427,7 @@ namespace UnityStandardAssets.Vehicles.Car
         }
 
         // Are all four wheels on a surface?
-        private bool InContactWithSurface()
+        public bool InContactWithSurface()
         {
             for (int i = 0; i < 4; i++)
             {
