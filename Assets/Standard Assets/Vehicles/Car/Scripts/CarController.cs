@@ -57,6 +57,10 @@ namespace UnityStandardAssets.Vehicles.Car
         private Rigidbody m_Rigidbody;
         private const float k_ReversingThreshold = 0.01f;
 
+        [SerializeField] private float m_Boost = 34f;
+        public float m_BoostBurnRate = 20f;
+        public float m_BoostMax = 100f;
+
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
         public float CurrentSteerAngle{ get { return m_SteerAngle; }}
@@ -272,13 +276,27 @@ namespace UnityStandardAssets.Vehicles.Car
             }
         }
 
+        public void OffsetBoost(float amount)
+        {
+            m_Boost = Mathf.Clamp(m_Boost + amount, 0f, m_BoostMax);
+        }
+
         private void Boost(float boost)
         {
-            m_Rigidbody.AddForce(
-                transform.forward * boost * m_BoostFactor * Time.fixedDeltaTime,
-                ForceMode.Impulse);
-            m_LeftBoostBurn.enableEmission = (boost > 0f);
-            m_RightBoostBurn.enableEmission = (boost > 0f);
+            if (m_Boost > 0f)
+            {
+                m_Rigidbody.AddForce(
+                    transform.forward * boost * m_BoostFactor * Time.fixedDeltaTime,
+                    ForceMode.Impulse);
+            }
+            m_LeftBoostBurn.enableEmission = (m_Boost > 0f && boost > 0f);
+            m_RightBoostBurn.enableEmission = (m_Boost > 0f && boost > 0f);
+
+            if (boost > 0f)
+            {
+                OffsetBoost(-m_BoostBurnRate * Time.deltaTime);
+            }
+            Debug.Log("Boost: " + m_Boost);
         }
 
         public void Move(
