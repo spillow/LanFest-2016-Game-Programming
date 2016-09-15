@@ -16,6 +16,8 @@ public class BoostBehavior : MonoBehaviour {
     private int m_Dir = +1;
     private float m_RespawnCounter = 0f;
 
+    public bool m_Hover = false;
+
     Renderer m_SphereRend;
     Collider m_Collider;
 
@@ -56,6 +58,9 @@ public class BoostBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (!m_Hover)
+            return;
+
         m_Orb.transform.position += m_Orb.transform.up * m_Velocity * Time.deltaTime * m_Dir;
         if (m_Dir == +1 && m_Orb.transform.localPosition.y > m_MaxHeight)
         {
