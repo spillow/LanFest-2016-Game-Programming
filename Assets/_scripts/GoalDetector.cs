@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GoalDetector : MonoBehaviour {
-
+public class GoalDetector : MonoBehaviour
+{
     public GameObject m_Ball;
     public float m_BlastRadius;
     public float m_ExplosionForce;
     public GameObject m_Explosion;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
     }
-    
+
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-    
+
     }
 
     void OnTriggerEnter(Collider other)

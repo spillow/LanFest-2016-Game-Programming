@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityStandardAssets.Vehicles.Car;
 
-public class BoostBehavior : MonoBehaviour {
+public class BoostBehavior : MonoBehaviour
+{
 
     public Transform m_Orb;
 
@@ -21,12 +22,12 @@ public class BoostBehavior : MonoBehaviour {
     Renderer m_SphereRend;
     Collider m_Collider;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         m_SphereRend = m_Orb.GetComponent<Renderer>();
         m_Collider = GetComponent<Collider>();
-	}
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -54,9 +55,9 @@ public class BoostBehavior : MonoBehaviour {
         m_Orb.gameObject.SetActive(true);
         m_Collider.enabled = true;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (!m_Hover)
             return;
@@ -70,5 +71,5 @@ public class BoostBehavior : MonoBehaviour {
         {
             m_Dir = +1;
         }
-	}
+    }
 }

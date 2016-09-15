@@ -5,9 +5,12 @@ namespace UnityStandardAssets.Cameras
 {
     public class AutoCam : PivotBasedCameraRig
     {
-        [SerializeField] private float m_MoveSpeed = 3; // How fast the rig will move to keep up with target's position
-        [SerializeField] private float m_TurnSpeed = 1; // How fast the rig will turn to keep up with target's rotation
-        [SerializeField] private float m_SmoothTurnTime = 0.2f; // the smoothing for the camera's rotation
+        [SerializeField]
+        private float m_MoveSpeed = 3; // How fast the rig will move to keep up with target's position
+        [SerializeField]
+        private float m_TurnSpeed = 1; // How fast the rig will turn to keep up with target's rotation
+        [SerializeField]
+        private float m_SmoothTurnTime = 0.2f; // the smoothing for the camera's rotation
 
         public Transform m_NextToCar;
 
