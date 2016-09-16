@@ -15,12 +15,12 @@ public class BoostBehavior : MonoBehaviour
     public float m_RespawnTime = 4; // seconds
 
     private int m_Dir = +1;
-    private float m_RespawnCounter = 0f;
 
     public bool m_Hover = false;
 
     Renderer m_SphereRend;
     Collider m_Collider;
+    public GameObject m_BoostBreakup;
 
     // Use this for initialization
     void Start()
@@ -44,6 +44,16 @@ public class BoostBehavior : MonoBehaviour
         {
             var ctrl = obj.GetComponent<CarController>();
             ctrl.OffsetBoost(m_BoostAmount);
+
+            if (m_BoostBreakup != null)
+            {
+                var exp = (GameObject)Instantiate(
+                               m_BoostBreakup, m_Orb.position, Quaternion.identity);
+                var particle = exp.GetComponent<ParticleSystem>();
+                particle.Play();
+                Destroy(exp, 5f);
+            }
+
             m_Orb.gameObject.SetActive(false);
             m_Collider.enabled = false;
             Invoke("TurnOnSphere", m_RespawnTime);
