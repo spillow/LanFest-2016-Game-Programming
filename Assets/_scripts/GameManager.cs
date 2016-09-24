@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
+using UnityStandardAssets.Vehicles.Car;
+
 public class GameManager : MonoBehaviour
 {
     enum State
@@ -12,6 +14,10 @@ public class GameManager : MonoBehaviour
     }
 
     public Text m_Timer;
+    public Image m_BoostDial;
+    public Text m_BoostAmount;
+
+    public CarController m_CarController;
 
     [Tooltip("length in seconds")]
     public float m_GameLength; // seconds
@@ -36,9 +42,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void UpdateBoostDial()
+    {
+        float frac = m_CarController.CarBoost / 100.0f;
+        m_BoostDial.fillAmount = frac;
+        m_BoostAmount.text = string.Format("{0}", (uint)m_CarController.CarBoost);
+    }
+
     // Update is called once per frame
     void Update()
     {
         UpdateClock();
+        UpdateBoostDial();
     }
 }

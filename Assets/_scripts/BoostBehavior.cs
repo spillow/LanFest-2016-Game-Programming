@@ -43,7 +43,7 @@ public class BoostBehavior : MonoBehaviour
         if (obj.tag == "Player")
         {
             var ctrl = obj.GetComponent<CarController>();
-            ctrl.OffsetBoost(m_BoostAmount);
+            ctrl.AddToBoostWell(m_BoostAmount);
 
             if (m_BoostBreakup != null)
             {

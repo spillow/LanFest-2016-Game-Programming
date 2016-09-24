@@ -82,6 +82,11 @@ namespace UnityStandardAssets.Vehicles.Car
         public float m_BoostBurnRate = 20f;
         public float m_BoostMax = 100f;
 
+        private float m_BoostWell = 0f;
+        public float m_BoostDrainRate = 1f;
+
+        public float CarBoost { get { return m_Boost;  }  }
+
         public bool Skidding { get; private set; }
         public float BrakeInput { get; private set; }
         public float CurrentSteerAngle { get { return m_SteerAngle; } }
@@ -306,9 +311,26 @@ namespace UnityStandardAssets.Vehicles.Car
             }
         }
 
-        public void OffsetBoost(float amount)
+        public void AddToBoostWell(float amount)
+        {
+            amount = Mathf.Min(m_BoostMax - m_Boost, amount);
+            m_BoostWell = Mathf.Clamp(m_BoostWell + amount, 0f, m_BoostMax);
+        }
+
+        private void OffsetBoost(float amount)
         {
             m_Boost = Mathf.Clamp(m_Boost + amount, 0f, m_BoostMax);
+        }
+
+        private void DrainBoostWell()
+        {
+            float currWell = m_BoostWell;
+            m_BoostWell = Mathf.Clamp(
+                m_BoostWell - m_BoostDrainRate * Time.deltaTime,
+                0f,
+                m_BoostMax);
+
+            OffsetBoost(currWell - m_BoostWell);
         }
 
         private void Boost(float boost)
@@ -326,7 +348,6 @@ namespace UnityStandardAssets.Vehicles.Car
             {
                 OffsetBoost(-m_BoostBurnRate * Time.deltaTime);
             }
-            Debug.Log("Boost: " + m_Boost);
         }
 
         public void Move(
@@ -404,6 +425,7 @@ namespace UnityStandardAssets.Vehicles.Car
             TractionControl();
 
             Jump(jump, steering, forward, rollbrake);
+            DrainBoostWell();
             Boost(boost);
 
             //Debug.Log("velocity: " + m_Rigidbody.velocity.magnitude);

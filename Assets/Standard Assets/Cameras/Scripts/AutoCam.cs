@@ -66,7 +66,7 @@ namespace UnityStandardAssets.Cameras
                                     rotation,
                                     m_TurnSpeed * deltaTime);
 
-                Debug.Log("t: " + t);
+                //Debug.Log("t: " + t);
 
                 m_Pivot.localPosition = Vector3.Lerp(
                     m_NextToCar.localPosition,
