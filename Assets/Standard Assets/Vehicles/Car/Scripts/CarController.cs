@@ -20,7 +20,11 @@ namespace UnityStandardAssets.Vehicles.Car
     {
         Grounded,
         Floating,
+        FirstJumpSetup,
         FirstJump,
+        SecondJumpInit,
+        SecondJump,
+        SecondJumpFinish,
         InAirDead,
         InAirAlive,
         Turtle
@@ -132,6 +136,19 @@ namespace UnityStandardAssets.Vehicles.Car
         private JumpStates m_JumpState;
         private float m_JumpTime;
         private float m_GroundedCooldown;
+        [SerializeField]
+        private float m_JumpSetupTime = 0.3f;
+        [SerializeField]
+        private float m_JumpSetupForce;
+        private bool m_JumpPressed = false;
+        [SerializeField]
+        private float m_SecondJumpTime = 0.6f;
+        [SerializeField]
+        private float m_JumpFlipFactor;
+
+        private float m_AngularDrag;
+
+        private bool m_PendingJump = false;
 
         // Use this for initialization
         private void Start()
@@ -152,6 +169,8 @@ namespace UnityStandardAssets.Vehicles.Car
 
             m_LeftBoostBurn.enableEmission = false;
             m_RightBoostBurn.enableEmission = false;
+
+            m_AngularDrag = m_Rigidbody.angularDrag;
         }
 
 
@@ -208,52 +227,46 @@ namespace UnityStandardAssets.Vehicles.Car
             Revs = ULerp(revsRangeMin, revsRangeMax, m_GearFactor);
         }
 
+        private void MoveInAir(float steer, float forward, float rollbrake)
+        {
+            if (rollbrake > 0f)
+            {
+                Vector3 airRoll = new Vector3(
+                    0f, 0f,
+                    -1f * steer * rollbrake * m_AirRollFactor * Time.fixedDeltaTime);
+                m_Rigidbody.AddRelativeTorque(airRoll, ForceMode.Impulse);
+            }
+            else
+            {
+                Vector3 torqDir = new Vector3(
+                    forward,
+                    steer,
+                    0f);
+                m_Rigidbody.AddRelativeTorque(
+                    torqDir * m_FlipFactor * Time.fixedDeltaTime, ForceMode.Impulse);
+            }
+        }
+
+        private void GroundCheck()
+        {
+            if (InContactWithSurface())
+            {
+                m_JumpState = JumpStates.Grounded;
+                Debug.Log("Going to Grounded!");
+            }
+        }
+
         // Logic controlling car jumping state machine
         private void Jump(float jump, float steer, float forward, float rollbrake)
         {
-            if (m_JumpState != JumpStates.Grounded && m_JumpState != JumpStates.Turtle)
-            {
-                if (InContactWithSurface())
-                {
-                    // Avoid falling back to grounded to quickly
-                    if ((Time.time - m_GroundedCooldown) >= 0.1f)
-                    {
-                        m_JumpState = JumpStates.Grounded;
-                        Debug.Log("Going to Grounded!");
-                        return;
-                    }
-                }
-                else
-                {
-                    if (rollbrake > 0f)
-                    {
-                        Vector3 airRoll = new Vector3(
-                            0f, 0f,
-                            -1f * steer * rollbrake * m_AirRollFactor * Time.fixedDeltaTime);
-                        m_Rigidbody.AddRelativeTorque(airRoll, ForceMode.Impulse);
-                    }
-                    else
-                    {
-                        Vector3 torqDir = new Vector3(
-                            forward,
-                            steer,
-                            0f);
-                        m_Rigidbody.AddRelativeTorque(
-                            torqDir * m_FlipFactor * Time.fixedDeltaTime, ForceMode.Impulse);
-                    }
-                }
-            }
-
             switch (m_JumpState)
             {
                 case JumpStates.Grounded:
-                    if (jump > 0.0f)
+                    if (jump > 0.0f && !m_JumpPressed)
                     {
                         m_JumpTime = Time.time;
-                        m_JumpState = JumpStates.FirstJump;
-                        Debug.Log("Going to FirstJump!");
-                        Debug.Log("Firing up!");
-                        m_GroundedCooldown = Time.time;
+                        m_JumpState = JumpStates.FirstJumpSetup;
+                        Debug.Log("Going to FirstJumpSetup!");
                     }
                     else if (!InContactWithSurface())
                     {
@@ -262,53 +275,146 @@ namespace UnityStandardAssets.Vehicles.Car
                     }
                     break;
                 case JumpStates.Floating:
-                    if (jump > 0.0f)
+                    MoveInAir(steer, forward, rollbrake);
+                    if (jump > 0.0f && !m_JumpPressed)
                     {
-                        m_Rigidbody.AddForce(transform.up * m_JumpForce * Time.fixedDeltaTime * 20f,
+                        m_JumpState = JumpStates.SecondJumpInit;
+                        Debug.Log("Going to SecondJumpInit!");
+                    }
+                    GroundCheck();
+                    break;
+                case JumpStates.FirstJumpSetup:
+                    if (jump > 0f && !m_JumpPressed)
+                    {
+                        m_PendingJump = true;
+                    }
+
+                    if ((Time.time - m_JumpTime) <= m_JumpSetupTime)
+                    {
+                        m_Rigidbody.AddForce(transform.up * m_JumpSetupForce * Time.deltaTime,
                             ForceMode.Impulse);
-                        m_JumpState = JumpStates.InAirDead;
-                        Debug.Log("Going to InAirDead!");
+                    }
+                    else
+                    {
+                        if (m_PendingJump)
+                        {
+                            m_PendingJump = false;
+                            m_JumpState = JumpStates.SecondJumpInit;
+                            Debug.Log("Going to SecondJumpInit!");
+                        }
+                        else
+                        {
+                            m_JumpState = JumpStates.FirstJump;
+                            Debug.Log("Going to FirstJump!");
+                        }
                     }
                     break;
                 case JumpStates.FirstJump:
-                    if ((Time.time - m_JumpTime) >= m_SecondJumpTimer)
-                    {
-                        // Time is up
-                        m_JumpState = JumpStates.InAirDead;
-                        Debug.Log("Going to InAirDead!");
-                    }
-                    else if (jump < 1.0f)
+                    MoveInAir(steer, forward, rollbrake);
+                    if ((Time.time - m_JumpTime) > m_FirstJumpTime)
                     {
                         m_JumpState = JumpStates.InAirAlive;
                         Debug.Log("Going to InAirAlive!");
                     }
-                    else if ((Time.time - m_JumpTime) <= m_FirstJumpTime)
+                    else if (m_JumpPressed)
                     {
-                        m_Rigidbody.AddForce(transform.up * 3f * m_JumpForce * Time.fixedDeltaTime,
-                            ForceMode.Impulse);
-                        Debug.Log("Firing up!");
+                        if (jump > 0.0f)
+                        {
+                            m_Rigidbody.AddForce(transform.up * m_JumpForce * Time.deltaTime,
+                                ForceMode.Impulse);
+                        }
+                        else
+                        {
+                            m_JumpState = JumpStates.InAirAlive;
+                            Debug.Log("Going to InAirAlive!");
+                        }
+                    }
+                    else
+                    {
+                        if (jump > 0.0f)
+                        {
+                            m_JumpState = JumpStates.SecondJumpInit;
+                            Debug.Log("Going to SecondJumpInit!");
+                        }
+                        else
+                        {
+                            m_JumpState = JumpStates.InAirAlive;
+                            Debug.Log("Going to InAirAlive!");
+                        }
+                    }
+                    GroundCheck();
+                    break;
+                case JumpStates.SecondJumpInit:
+                    if (Mathf.Abs(forward) < 0.1f && Mathf.Abs(steer) < 0.1f)
+                    {
+                        m_Rigidbody.AddForce(
+                            transform.up * 10000f, ForceMode.Impulse);
+                        m_JumpState = JumpStates.InAirDead;
+                        Debug.Log("Going to InAirDead!");
+                    }
+                    else
+                    {
+                        // init
+                        m_Rigidbody.useGravity = false;
+                        m_Rigidbody.angularDrag = 0.2f;
+                        Vector3 velocity = m_Rigidbody.velocity;
+                        velocity.y = 0f;
+                        m_Rigidbody.velocity = velocity;
+                        Vector3 torqDir = new Vector3(
+                               forward,
+                               0f,
+                               -steer);
+                        m_Rigidbody.AddRelativeTorque(
+                            torqDir * m_JumpFlipFactor, ForceMode.Impulse);
+                        /*
+                        Vector3 forceDir = new Vector3(
+                            steer,
+                            0f,
+                            forward
+                            );
+                        m_Rigidbody.AddRelativeForce(
+                            forceDir*20000f, ForceMode.Impulse);
+                            */
+                        m_JumpState = JumpStates.SecondJump;
+                        m_JumpTime = Time.time;
+                        Debug.Log("Going to SecondJump!");
                     }
                     break;
-                case JumpStates.InAirDead:
+                case JumpStates.SecondJump:
+                    if ((Time.time - m_JumpTime) > m_SecondJumpTime)
+                    {
+                        m_JumpState = JumpStates.SecondJumpFinish;
+                        Debug.Log("Going to SecondJumpFinish!");
+                    }
+                    break;
+                case JumpStates.SecondJumpFinish:
+                    m_Rigidbody.useGravity = true;
+                    m_Rigidbody.angularDrag = m_AngularDrag;
+                    m_JumpState = JumpStates.InAirDead;
+                    Debug.Log("Going to InAirDead!");
                     break;
                 case JumpStates.InAirAlive:
-                    if ((Time.time - m_JumpTime) >= m_SecondJumpTimer)
+                    MoveInAir(steer, forward, rollbrake);
+                    if ((Time.time - m_JumpTime) > m_SecondJumpTimer)
                     {
                         // Time is up
                         m_JumpState = JumpStates.InAirDead;
                         Debug.Log("Going to InAirDead!");
                     }
-                    else if (jump > 0.0f)
+                    else if (!m_JumpPressed && jump > 0f)
                     {
-                        m_Rigidbody.AddForce(transform.up * m_JumpForce * Time.fixedDeltaTime * 20f,
-                            ForceMode.Impulse);
-                        m_JumpState = JumpStates.InAirDead;
-                        Debug.Log("Going to InAirDead!");
+                        m_JumpState = JumpStates.SecondJumpInit;
+                        Debug.Log("Going to SecondJumpInit!");
                     }
+                    GroundCheck();
                     break;
-                case JumpStates.Turtle:
+                case JumpStates.InAirDead:
+                    MoveInAir(steer, forward, rollbrake);
+                    GroundCheck();
                     break;
             }
+
+            m_JumpPressed = (jump > 0f);
         }
 
         public void AddToBoostWell(float amount)
@@ -417,10 +523,7 @@ namespace UnityStandardAssets.Vehicles.Car
             }
             */
 
-            // TODO: need this?
-#if true
             AddDownForce();
-#endif
             CheckForWheelSpin();
             TractionControl();
 
@@ -517,7 +620,8 @@ namespace UnityStandardAssets.Vehicles.Car
                 WheelHit wheelhit;
                 m_WheelColliders[i].GetGroundHit(out wheelhit);
                 if (wheelhit.normal != Vector3.zero &&
-                    wheelhit.collider.gameObject.tag == "Cage")
+                    (wheelhit.collider.gameObject.tag == "Cage" ||
+                     wheelhit.collider.gameObject.tag == "Ramp"))
                     return true; // some wheel is on the ground
             }
 

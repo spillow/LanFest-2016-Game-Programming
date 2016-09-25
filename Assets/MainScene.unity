@@ -1060,7 +1060,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461154, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.19
+      value: 4.8
       objectReference: {fileID: 0}
     - target: {fileID: 461154, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1090,17 +1090,61 @@ Prefab:
       propertyPath: m_Cam
       value: 
       objectReference: {fileID: 109931734}
-    - target: {fileID: 13522038, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 13505256, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 11440138, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_JumpFlipFactor
+      value: 80000
       objectReference: {fileID: 0}
     - target: {fileID: 11440138, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
-      propertyPath: m_BoostDrainRate
-      value: 100
+      propertyPath: m_JumpSetupForce
+      value: 250000
+      objectReference: {fileID: 0}
+    - target: {fileID: 430048, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 3.6423638
+      objectReference: {fileID: 0}
+    - target: {fileID: 430048, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 430048, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432948, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.68372655
+      objectReference: {fileID: 0}
+    - target: {fileID: 432948, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 432948, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.872
+      objectReference: {fileID: 0}
+    - target: {fileID: 432948, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.946
+      objectReference: {fileID: 0}
+    - target: {fileID: 462150, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.6959226
+      objectReference: {fileID: 0}
+    - target: {fileID: 462150, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 432948, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.2840371
+      objectReference: {fileID: 0}
+    - target: {fileID: 11440138, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_JumpSetupTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11440138, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+      propertyPath: m_FirstJumpTime
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
@@ -2459,7 +2503,7 @@ GameObject:
   - 64: {fileID: 1087199003}
   m_Layer: 0
   m_Name: Ramp
-  m_TagString: Untagged
+  m_TagString: Ramp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

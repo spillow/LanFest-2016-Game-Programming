@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - Ball
   - Cage
+  - Ramp
   layers:
   - Default
   - TransparentFX
