@@ -505,6 +505,58 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 169564, guid: eb865f1dfd8da3c4d8416b2076308cc7, type: 2}
   m_PrefabInternal: {fileID: 629716223}
+--- !u!114 &173103777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 173103776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 235
+    i1: 134
+    i2: 95
+    i3: 29
+    i4: 253
+    i5: 141
+    i6: 163
+    i7: 196
+    i8: 216
+    i9: 65
+    i10: 107
+    i11: 32
+    i12: 118
+    i13: 48
+    i14: 140
+    i15: 199
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &173103778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 173103776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 20
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!4 &173103781 stripped
 Transform:
   m_PrefabParentObject: {fileID: 460378, guid: eb865f1dfd8da3c4d8416b2076308cc7, type: 2}
