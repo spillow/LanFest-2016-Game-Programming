@@ -2250,7 +2250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &640909852
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2815,7 +2815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1016584660
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3420,6 +3420,8 @@ MonoBehaviour:
   m_Timer: {fileID: 1615895008}
   m_BoostDial: {fileID: 2146277466}
   m_BoostAmount: {fileID: 1877935186}
+  m_BoostDialRoot: {fileID: 640909851}
+  m_ScoreboardRoot: {fileID: 1016584659}
   m_CarController: {fileID: 0}
   m_GameLength: 301
 --- !u!1 &1205733814

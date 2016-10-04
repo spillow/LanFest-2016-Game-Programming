@@ -17,12 +17,21 @@ public class GameManager : MonoBehaviour
     public Image m_BoostDial;
     public Text m_BoostAmount;
 
+    public GameObject m_BoostDialRoot;
+    public GameObject m_ScoreboardRoot;
+
     public CarController m_CarController;
 
     [Tooltip("length in seconds")]
     public float m_GameLength; // seconds
 
     private State m_GameState = State.NormalPlay;
+
+    void OnEnable()
+    {
+        m_BoostDialRoot.SetActive(true);
+        m_ScoreboardRoot.SetActive(true);
+    }
 
     // Use this for initialization
     void Start()
