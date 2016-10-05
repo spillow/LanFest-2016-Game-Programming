@@ -9,6 +9,8 @@ TagManager:
   - Ball
   - Cage
   - Ramp
+  - GameManager
+  - CameraRig
   layers:
   - Default
   - TransparentFX
