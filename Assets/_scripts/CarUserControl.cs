@@ -19,8 +19,6 @@ namespace UnityStandardAssets.Vehicles.Car
         {
             base.OnStartLocalPlayer();
 
-            //GetComponent<MeshRenderer>().material.color = Color.red;
-
             // get the car controller
             m_Car = GetComponent<CarController>();
 

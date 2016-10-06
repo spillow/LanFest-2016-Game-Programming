@@ -33,6 +33,7 @@ GameObject:
   - 114: {fileID: 114000014129492534}
   - 114: {fileID: 114000013572945816}
   - 114: {fileID: 114000013202151544}
+  - 114: {fileID: 114000012340295710}
   m_Layer: 0
   m_Name: Car
   m_TagString: Player
@@ -86,7 +87,7 @@ GameObject:
   - 23: {fileID: 2353446}
   m_Layer: 0
   m_Name: SkyCarBody
-  m_TagString: Untagged
+  m_TagString: SkyCarBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11453,6 +11454,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000012340295710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b674f40806f7e5249bb2904c2b798339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CarBody: {fileID: 111776}
 --- !u!114 &114000013202151544
 MonoBehaviour:
   m_ObjectHideFlags: 1

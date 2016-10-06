@@ -11,6 +11,7 @@ TagManager:
   - Ramp
   - GameManager
   - CameraRig
+  - SkyCarBody
   layers:
   - Default
   - TransparentFX
