@@ -3119,6 +3119,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1949548835}
+        m_MethodName: OnHostGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &816718422
@@ -4434,7 +4445,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.97794116, g: 0.841317, b: 0.841317, a: 1}
+    m_NormalColor: {r: 0.011764706, g: 0.9411765, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9852941, g: 0.42019895, b: 0.42019895, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.2205882, g: 0.21734427, b: 0.21734427, a: 0.5019608}
@@ -6421,7 +6432,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.97794116, g: 0.841317, b: 0.841317, a: 1}
+    m_NormalColor: {r: 0.972549, g: 0.62352943, b: 0.07058824, a: 1}
     m_HighlightedColor: {r: 0.9852941, g: 0.42019895, b: 0.42019895, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.2205882, g: 0.21734427, b: 0.21734427, a: 0.5019608}
@@ -7079,7 +7090,7 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 104224, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
   m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: 
+  m_OfflineScene: MainScene
   m_OnlineScene: 
   m_SpawnPrefabs: []
   m_CustomConfig: 0
@@ -7127,11 +7138,12 @@ MonoBehaviour:
   m_ShowLobbyGUI: 1
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 1
-  m_MinPlayers: 0
-  m_LobbyPlayerPrefab: {fileID: 0}
-  m_GamePlayerPrefab: {fileID: 0}
-  m_LobbyScene: 
-  m_PlayScene: 
+  m_MinPlayers: 1
+  m_LobbyPlayerPrefab: {fileID: 114000013076152492, guid: 50de2103065c091428d32beede740325,
+    type: 2}
+  m_GamePlayerPrefab: {fileID: 104224, guid: 5c019afae1f78834b923e2f98b5acbce, type: 2}
+  m_LobbyScene: MainScene
+  m_PlayScene: MainScene
   lobbySlots: []
 --- !u!1001 &1978468159
 Prefab:
