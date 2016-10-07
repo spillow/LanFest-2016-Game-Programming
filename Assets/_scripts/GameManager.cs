@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public Image m_BoostDial;
     public Text m_BoostAmount;
 
+    public Text m_BlueScore;
+    public Text m_OrangeScore;
+
     public GameObject m_BoostDialRoot;
     public GameObject m_ScoreboardRoot;
 
@@ -31,6 +34,12 @@ public class GameManager : MonoBehaviour
     {
         m_BoostDialRoot.SetActive(true);
         m_ScoreboardRoot.SetActive(true);
+    }
+
+    // Callback with color of goal that was scored on
+    public void OnGoalScored(GoalColor color)
+    {
+        Debug.Log("Scored on: " + color);
     }
 
     // Use this for initialization

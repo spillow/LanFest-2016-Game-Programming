@@ -1,5 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
+
+public enum GoalColor
+{
+    Blue,
+    Orange
+}
+
+[System.Serializable]
+public class GoalScoredEvent : UnityEvent<GoalColor> { }
 
 public class GoalDetector : MonoBehaviour
 {
@@ -7,10 +17,14 @@ public class GoalDetector : MonoBehaviour
     public float m_BlastRadius;
     public float m_ExplosionForce;
     public GameObject m_Explosion;
+    public GoalColor m_GoalColor;
+
+    public GoalScoredEvent m_GoalScoredEvent;
 
     // Use this for initialization
     void Start()
     {
+        m_GoalScoredEvent = new GoalScoredEvent();
     }
 
     // Update is called once per frame
@@ -42,6 +56,8 @@ public class GoalDetector : MonoBehaviour
                     m_Ball.transform.position,
                     m_BlastRadius);
             }
+
+            m_GoalScoredEvent.Invoke(m_GoalColor);
         }
     }
 }
