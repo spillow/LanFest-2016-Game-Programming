@@ -24,7 +24,6 @@ public class GoalDetector : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        m_GoalScoredEvent = new GoalScoredEvent();
     }
 
     // Update is called once per frame
