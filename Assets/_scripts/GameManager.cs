@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     public Text m_BlueScore;
     public Text m_OrangeScore;
 
+    uint m_BlueScoreValue   = 0;
+    uint m_OrangeScoreValue = 0;
+
     public GameObject m_BoostDialRoot;
     public GameObject m_ScoreboardRoot;
 
@@ -39,7 +42,21 @@ public class GameManager : MonoBehaviour
     // Callback with color of goal that was scored on
     public void OnGoalScored(GoalColor color)
     {
-        Debug.Log("Scored on: " + color);
+        if (color == GoalColor.Blue)
+        {
+            // If we scored on the blue goal, add one to orange's score.
+            m_OrangeScoreValue++;
+            m_OrangeScore.text = string.Format("{0}", m_OrangeScoreValue);
+        }
+        else if (color == GoalColor.Orange)
+        {
+            m_BlueScoreValue++;
+            m_BlueScore.text = string.Format("{0}", m_BlueScoreValue);
+        }
+        else
+        {
+            Debug.Assert(false, "Unknown goal color!");
+        }
     }
 
     // Use this for initialization
